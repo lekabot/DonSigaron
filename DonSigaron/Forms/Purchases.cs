@@ -69,25 +69,31 @@ namespace DonSigaron.Forms
                 gettingProductID = functions.sqlSelect($"SELECT [products].[product_id], order_item.quantity, [products].stock FROM " +
                     $"order_item INNER JOIN products ON order_item.product_id = products.product_id WHERE " +
                     $"order_item.order_id = {convertedOrders} AND purchased = 0");
-
-
-                for (int i = 0; i < gettingProductID.Rows.Count; i++)
+                
+                if (gettingProductID.Rows.Count <= 0)
                 {
-                    int productID = Convert.ToInt32(gettingProductID.Rows[i][0]);
-                    int quantity = Convert.ToInt32(gettingProductID.Rows[i][1]);
-                    int stockProduct = Convert.ToInt32(gettingProductID.Rows[i][2]);
-                    int updateStock = stockProduct - quantity;
-
-                    SqlCommand buyingProduct = new SqlCommand();
-                    buyingProduct = functions.sqlInsert($"UPDATE [dbo].[order_item] SET purchased = 1 WHERE product_id = {productID}");
-                    buyingProduct.ExecuteNonQuery();
-                    SqlCommand removeQuantityDB = new SqlCommand();
-                    removeQuantityDB = functions.sqlInsert($"UPDATE [dbo].[products] SET stock = {updateStock} WHERE product_id = {productID}");
-                    removeQuantityDB.ExecuteNonQuery();
-
+                    MessageBox.Show("Your shopping cart is empty", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
+                else
+                {
+                    for (int i = 0; i < gettingProductID.Rows.Count; i++)
+                    {
+                        int productID = Convert.ToInt32(gettingProductID.Rows[i][0]);
+                        int quantity = Convert.ToInt32(gettingProductID.Rows[i][1]);
+                        int stockProduct = Convert.ToInt32(gettingProductID.Rows[i][2]);
+                        int updateStock = stockProduct - quantity;
 
-                MessageBox.Show("Expect your delivery", "Successfully", MessageBoxButtons.OK, MessageBoxIcon.Information);    
+                        SqlCommand buyingProduct = new SqlCommand();
+                        buyingProduct = functions.sqlInsert($"UPDATE [dbo].[order_item] SET purchased = 1 WHERE product_id = {productID}");
+                        buyingProduct.ExecuteNonQuery();
+                        SqlCommand removeQuantityDB = new SqlCommand();
+                        removeQuantityDB = functions.sqlInsert($"UPDATE [dbo].[products] SET stock = {updateStock} WHERE product_id = {productID}");
+                        removeQuantityDB.ExecuteNonQuery();
+
+                    }
+
+                    MessageBox.Show("Expect your delivery", "Successfully", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }    
             }
             else
             {
