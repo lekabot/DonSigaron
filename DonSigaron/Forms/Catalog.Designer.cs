@@ -32,6 +32,7 @@ namespace DonSigaron.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            this.SuspendLayout();
             // 
             // Catalog
             // 
@@ -42,6 +43,7 @@ namespace DonSigaron.Forms
             this.Name = "Catalog";
             this.Text = "Catalog";
             this.Load += new System.EventHandler(this.Catalog_Load_1);
+            this.SizeChanged += new System.EventHandler(this.Catalog_Load_1);
             this.ResumeLayout(false);
 
         }

@@ -12,7 +12,7 @@ namespace DonSigaron.Forms
 {
     public partial class Catalog : Form
     {
-
+        
         DBFunctions functions = new DBFunctions();
         Form dataForm = new Form();
         Buttons backButton= new Buttons();
@@ -29,6 +29,11 @@ namespace DonSigaron.Forms
 
         private void Catalog_Load_1(object sender, EventArgs e)
         {
+            foreach (Control control in this.Controls)
+            {
+                this.Controls.Remove(control);
+                control.Dispose(); // Освобождение ресурсов контроля
+            }
             RoundButton backToInfo = new RoundButton();
             backToInfo = Buttons.createButtonBack();
             backToInfo.Click += new System.EventHandler(this.backToActions_Click);
@@ -42,34 +47,80 @@ namespace DonSigaron.Forms
             List<string> tableNames = functions.GetNamesFromTable();
             RoundButton[] buttons = new RoundButton[tableNames.Count];
 
-            for (int i = 0; i < tableNames.Count; i++)
+            Rectangle bounds = this.Bounds;
+            int left = bounds.Left;
+            int top = bounds.Top;
+            int width = bounds.Width;
+            int height = bounds.Height;
+
+            //for (int i = 0; i < tableNames.Count; i++)
+            //{
+            //    RoundButton button = new RoundButton();
+            //    button.Text = tableNames[i];
+            //    button.Size = new Size(100, 50);
+            //    button.Location = new Point(i * 110 + 10, 60);
+            //    buttons[i] = button;
+            //    buttons[i].BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
+            //    buttons[i].BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
+            //    buttons[i].ButtonBorderColor = System.Drawing.Color.White;
+            //    buttons[i].ButtonHighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            //    buttons[i].ButtonHighlightColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            //    buttons[i].ButtonHighlightForeColor = System.Drawing.Color.White;
+            //    buttons[i].ButtonPressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
+            //    buttons[i].ButtonPressedColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
+            //    buttons[i].ButtonPressedForeColor = System.Drawing.Color.White;
+            //    buttons[i].ButtonRoundRadius = 20;
+            //    buttons[i].Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            //    buttons[i].ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            //    button.Click += new EventHandler(createFormAndProduct_Click);
+            //    this.Controls.Add(button);
+            //}
+            int buttonWidth = 100;
+            int buttonHeight = 50;
+            int verticalSpacing = 10;
+            int horizontalSpacing = 10;
+            int buttonsPerRow = (width - horizontalSpacing * tableNames.Count)/ buttonWidth;
+
+            int rowCount = (tableNames.Count + buttonsPerRow - 1) / buttonsPerRow; // Определение числа строк
+
+            for (int row = 0; row < rowCount; row++)
             {
-                RoundButton button = new RoundButton();
-                button.Text = tableNames[i];
-                button.Size = new Size(100, 50);
-                button.Location = new Point(i * 110 + 10, 60);
-                buttons[i] = button;
-                buttons[i].BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
-                buttons[i].BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
-                buttons[i].ButtonBorderColor = System.Drawing.Color.White;
-                buttons[i].ButtonHighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-                buttons[i].ButtonHighlightColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-                buttons[i].ButtonHighlightForeColor = System.Drawing.Color.White;
-                buttons[i].ButtonPressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
-                buttons[i].ButtonPressedColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
-                buttons[i].ButtonPressedForeColor = System.Drawing.Color.White;
-                buttons[i].ButtonRoundRadius = 20;
-                buttons[i].Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-                buttons[i].ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-                button.Click += new EventHandler(createFormAndProduct_Click);
-                this.Controls.Add(button);
+                for (int col = 0; col < buttonsPerRow; col++)
+                {
+                    int index = row * buttonsPerRow + col; // Индекс текущей кнопки в списке
+
+                    if (index >= tableNames.Count)
+                    {
+                        break; // Прекращаем цикл, если все кнопки уже созданы
+                    }
+
+                    RoundButton button = new RoundButton();
+                    button.Text = tableNames[index];
+                    button.Size = new Size(buttonWidth, buttonHeight);
+                    button.Location = new Point(col * (buttonWidth + horizontalSpacing) + 10, row * (buttonHeight + verticalSpacing) + 60);
+                    buttons[index] = button;
+                    buttons[index].BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
+                    buttons[index].BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
+                    buttons[index].ButtonBorderColor = System.Drawing.Color.White;
+                    buttons[index].ButtonHighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+                    buttons[index].ButtonHighlightColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+                    buttons[index].ButtonHighlightForeColor = System.Drawing.Color.White;
+                    buttons[index].ButtonPressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
+                    buttons[index].ButtonPressedColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
+                    buttons[index].ButtonPressedForeColor = System.Drawing.Color.White;
+                    buttons[index].ButtonRoundRadius = 20;
+                    buttons[index].Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+                    buttons[index].ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+                    button.Click += new EventHandler(createFormAndProduct_Click);
+                    this.Controls.Add(button);
+                }
             }
+
         }
 
         private int priceOneProduct;
         private void createFormAndProduct_Click(object sender, EventArgs e)
         {
-
             RoundButton button = (RoundButton)sender;
             
             string buttonName = button.Text;

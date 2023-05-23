@@ -12,12 +12,13 @@ namespace DonSigaron.Forms
         {
             InitializeComponent();
             StartPosition = FormStartPosition.CenterScreen;
+            text_password.PasswordChar = '*';
         }
         private void sign_in_Load(object sender, EventArgs e)
         {
-            text_password.PasswordChar = '*';
             text_password.MaxLength = 50;
             text_name.MaxLength = 50;
+            
         }
 
         private void roundButton1_Click_1(object sender, EventArgs e)

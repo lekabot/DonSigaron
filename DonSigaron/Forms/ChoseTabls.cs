@@ -170,9 +170,20 @@ namespace DonSigaron.Forms
             string tableName = nameOfTable;
 
             List<string> columns = new List<string>();
-            foreach (DataGridViewColumn column in dataGridView.Columns)
+            if (nameOfTable == "products")
             {
-                columns.Add(column.Name);
+                for (int i = 0; i < dataGridView.Columns.Count - 1; i++)
+                {
+                    DataGridViewColumn column = dataGridView.Columns[i];
+                    columns.Add(column.Name);
+                }
+            }
+            else
+            {
+                foreach (DataGridViewColumn column in dataGridView.Columns)
+                {
+                    columns.Add(column.Name);
+                }
             }
 
             List<string> values = new List<string>();
@@ -191,10 +202,10 @@ namespace DonSigaron.Forms
                 }
             }
             query += ") VALUES (";
-            for (int i = 1; i < values.Count; i++)
+            for (int i = 1; i < values.Count - 1; i++)
             {
                 query += "@" + i.ToString();
-                if (i < values.Count - 1)
+                if (i < values.Count - 2)
                 {
                     query += ",";
                 }
