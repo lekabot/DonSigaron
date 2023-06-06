@@ -7,6 +7,7 @@ using System.IO;
 using System.Windows.Forms;
 using Label = System.Windows.Forms.Label;
 using DonSigaron.Classes;
+using System.Xml.Linq;
 
 namespace DonSigaron.Forms
 {
@@ -19,33 +20,47 @@ namespace DonSigaron.Forms
         NumericUpDown numericUpDown = new NumericUpDown();
         //public static string tableName;
         public static int selectedValue = 1;
-
-
+        private Size originalSize;
+        RoundButton[] buttons;
+        
         public Catalog()
         {
             InitializeComponent();
             StartPosition = FormStartPosition.CenterScreen;
+            Catalog_Load();
+
+            originalSize = this.Size;
+            
         }
 
         private void Catalog_Load_1(object sender, EventArgs e)
+        { }
+
+        private void Catalog_Load()
         {
+            if (this.Size.Width < 150)
+            {
+                originalSize.Width = 150;
+            }
             foreach (Control control in this.Controls)
             {
                 this.Controls.Remove(control);
                 control.Dispose(); // Освобождение ресурсов контроля
             }
             RoundButton backToInfo = new RoundButton();
-            backToInfo = Buttons.createButtonBack();
+            backToInfo = Buttons.createButton2BackInBlack(this.Size.Width);
+            backToInfo.Location = new Point(this.ClientSize.Width - backToInfo.Width - 10, 10);
             backToInfo.Click += new System.EventHandler(this.backToActions_Click);
             this.Controls.Add(backToInfo);
 
             RoundButton cart = new RoundButton();
-            cart = Buttons.createButtonCart();
+            cart = Buttons.createButtonCart2();
+            cart.Location = new Point(this.ClientSize.Width - cart.Width - 141, 10);
             cart.Click += new System.EventHandler(this.goToCart1_Click);
             this.Controls.Add(cart);
 
             List<string> tableNames = functions.GetNamesFromTable();
-            RoundButton[] buttons = new RoundButton[tableNames.Count];
+           buttons = new RoundButton[tableNames.Count];
 
             Rectangle bounds = this.Bounds;
             int left = bounds.Left;
@@ -79,7 +94,7 @@ namespace DonSigaron.Forms
             int buttonHeight = 50;
             int verticalSpacing = 10;
             int horizontalSpacing = 10;
-            int buttonsPerRow = (width - horizontalSpacing * tableNames.Count)/ buttonWidth;
+            int buttonsPerRow = width/(buttonWidth+horizontalSpacing);
 
             int rowCount = (tableNames.Count + buttonsPerRow - 1) / buttonsPerRow; // Определение числа строк
 
@@ -251,17 +266,28 @@ namespace DonSigaron.Forms
             picture.TabIndex = 0;
             picture.TabStop = false;
 
-            using (SqlConnection connection = new SqlConnection(DataBase.connectionString))
+            DataTable a = new DataTable();
+            a = functions.sqlSelect($"SELECT Image FROM products WHERE name = '{buttonName}'");
+            if (!a.Rows[0].IsNull("Image"))
             {
-                connection.Open();
-                SqlCommand command = new SqlCommand($"SELECT Image FROM products WHERE '{buttonName}' = name", connection);
-                byte[] imageData = (byte[])command.ExecuteScalar();
-                using (MemoryStream ms = new MemoryStream(imageData))
+                using (SqlConnection connection = new SqlConnection(DataBase.connectionString))
                 {
-                    Image image = Image.FromStream(ms);
-                    picture.Image = image;
+                    connection.Open();
+                    SqlCommand command = new SqlCommand($"SELECT Image FROM products WHERE '{buttonName}' = name", connection);
+                    byte[] imageData = (byte[])command.ExecuteScalar();
+                    using (MemoryStream ms = new MemoryStream(imageData))
+                    {
+                        Image image = Image.FromStream(ms);
+                        picture.Image = image;
+                    }
                 }
             }
+            else
+            {
+                Image image = Image.FromFile("D:\\AAProjects\\C#\\DonSigaron\\DonSigaron\\DonSigaron\\Resources\\noimage.jpg");
+                picture.Image = image;
+            }
+
 
             dataForm.Controls.Add(picture);
 
@@ -400,7 +426,7 @@ namespace DonSigaron.Forms
             tableTakingSelectedProduct = functions.sqlSelect($"SELECT product_id FROM products WHERE name = '{VariableStorage.productName}'");
             int productID = Convert.ToInt32(tableTakingSelectedProduct.Rows[0][0]);
             DataTable tableTakingOrderID = new DataTable();
-            tableTakingOrderID = functions.sqlSelect($"SELECT id FROM orders WHERE customer_id = '{functions.getUserID()}'");
+            tableTakingOrderID = functions.sqlSelect($"SELECT id FROM orders WHERE customer_id = {functions.getUserID()}");
             int orderID = Convert.ToInt32(tableTakingOrderID.Rows[0][0]);
             //if
             SqlCommand addToCart = new SqlCommand();
@@ -434,6 +460,12 @@ namespace DonSigaron.Forms
             tableTakingUserID = functions.sqlSelect($"SELECT id FROM customers WHERE username = '{VariableStorage.userName}'");
             int userID = Convert.ToInt32(tableTakingUserID.Rows[0][0]);
             return userID;
+        }
+
+        private void Catalog_SizeChanged(object sender, EventArgs e)
+        {
+            this.Controls.Clear();
+            Catalog_Load();
         }
     }
 }

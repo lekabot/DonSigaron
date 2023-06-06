@@ -46,7 +46,10 @@ namespace DonSigaron.Forms
             // 
             // categories
             // 
+            this.categories.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.categories.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
             this.categories.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.categories.GridColor = System.Drawing.Color.White;
             this.categories.Location = new System.Drawing.Point(34, 60);
             this.categories.Name = "categories";
             this.categories.Size = new System.Drawing.Size(311, 136);
@@ -54,7 +57,10 @@ namespace DonSigaron.Forms
             // 
             // products
             // 
+            this.products.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.products.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
             this.products.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.products.GridColor = System.Drawing.Color.White;
             this.products.Location = new System.Drawing.Point(428, 60);
             this.products.Name = "products";
             this.products.Size = new System.Drawing.Size(311, 136);
@@ -62,7 +68,10 @@ namespace DonSigaron.Forms
             // 
             // manufacturer
             // 
+            this.manufacturer.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.manufacturer.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
             this.manufacturer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.manufacturer.GridColor = System.Drawing.Color.White;
             this.manufacturer.Location = new System.Drawing.Point(34, 275);
             this.manufacturer.Name = "manufacturer";
             this.manufacturer.Size = new System.Drawing.Size(311, 136);
@@ -70,7 +79,10 @@ namespace DonSigaron.Forms
             // 
             // orders
             // 
+            this.orders.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.orders.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
             this.orders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.orders.GridColor = System.Drawing.Color.White;
             this.orders.Location = new System.Drawing.Point(428, 275);
             this.orders.Name = "orders";
             this.orders.Size = new System.Drawing.Size(311, 136);

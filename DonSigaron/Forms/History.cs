@@ -20,11 +20,16 @@ namespace DonSigaron.Forms
             DataTable userOrders = new DataTable();
             userOrders = functions.sqlSelect($"SELECT orders.id FROM orders INNER JOIN customers ON " +
                 $"customers.id =  orders.customer_id WHERE username = '{VariableStorage.userName}'");
-            int convertedOrders = Convert.ToInt32(userOrders.Rows[0][0]);
+            
+            if (userOrders.Rows.Count > 0)
+            {
+                int convertedOrders = Convert.ToInt32(userOrders.Rows[0][0]);
 
-            dataCart.DataSource = functions.sqlSelect($"SELECT [products].[name], order_item.quantity, products.price FROM " +
-                $"order_item INNER JOIN products ON order_item.product_id = products.product_id WHERE " +
-                $"order_item.order_id = {convertedOrders} AND purchased = 1");
+                dataCart.DataSource = functions.sqlSelect($"SELECT [products].[name], order_item.quantity, products.price FROM " +
+                    $"order_item INNER JOIN products ON order_item.product_id = products.product_id WHERE " +
+                    $"order_item.order_id = {convertedOrders} AND purchased = 1");
+            }
+            
 
             RoundButton backToCatalog = new RoundButton();
             backToCatalog = Buttons.createButtonBack();

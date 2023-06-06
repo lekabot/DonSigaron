@@ -49,7 +49,10 @@
             // 
             // dataCart
             // 
+            this.dataCart.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataCart.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
             this.dataCart.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataCart.GridColor = System.Drawing.Color.White;
             this.dataCart.Location = new System.Drawing.Point(71, 73);
             this.dataCart.Name = "dataCart";
             this.dataCart.Size = new System.Drawing.Size(659, 282);

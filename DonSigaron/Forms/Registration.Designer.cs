@@ -30,8 +30,6 @@ namespace DonSigaron.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox_city = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.textBox_address = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -44,8 +42,8 @@ namespace DonSigaron.Forms
             this.label2 = new System.Windows.Forms.Label();
             this.textBox_email = new System.Windows.Forms.TextBox();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
-            this.roundButton2 = new RoundButton();
-            this.roundButton1 = new RoundButton();
+            this.roundButton2 = new DonSigaron.Classes.RoundButton();
+            this.roundButton1 = new DonSigaron.Classes.RoundButton();
             this.label4 = new System.Windows.Forms.Label();
             this.textBox_last_name = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -53,34 +51,12 @@ namespace DonSigaron.Forms
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // textBox_city
-            // 
-            this.textBox_city.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
-            this.textBox_city.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox_city.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox_city.ForeColor = System.Drawing.SystemColors.InactiveBorder;
-            this.textBox_city.Location = new System.Drawing.Point(556, 281);
-            this.textBox_city.Name = "textBox_city";
-            this.textBox_city.Size = new System.Drawing.Size(167, 35);
-            this.textBox_city.TabIndex = 79;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label7.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label7.Location = new System.Drawing.Point(505, 285);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(45, 23);
-            this.label7.TabIndex = 78;
-            this.label7.Text = "City";
-            // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label8.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label8.Location = new System.Drawing.Point(474, 230);
+            this.label8.Location = new System.Drawing.Point(470, 264);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(76, 23);
             this.label8.TabIndex = 77;
@@ -92,7 +68,7 @@ namespace DonSigaron.Forms
             this.textBox_address.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox_address.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBox_address.ForeColor = System.Drawing.SystemColors.InactiveBorder;
-            this.textBox_address.Location = new System.Drawing.Point(556, 225);
+            this.textBox_address.Location = new System.Drawing.Point(552, 259);
             this.textBox_address.Name = "textBox_address";
             this.textBox_address.Size = new System.Drawing.Size(167, 35);
             this.textBox_address.TabIndex = 76;
@@ -102,7 +78,7 @@ namespace DonSigaron.Forms
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label9.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label9.Location = new System.Drawing.Point(460, 169);
+            this.label9.Location = new System.Drawing.Point(456, 203);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(90, 23);
             this.label9.TabIndex = 75;
@@ -114,7 +90,7 @@ namespace DonSigaron.Forms
             this.textBox_password.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox_password.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBox_password.ForeColor = System.Drawing.SystemColors.InactiveBorder;
-            this.textBox_password.Location = new System.Drawing.Point(556, 164);
+            this.textBox_password.Location = new System.Drawing.Point(552, 198);
             this.textBox_password.Name = "textBox_password";
             this.textBox_password.Size = new System.Drawing.Size(167, 35);
             this.textBox_password.TabIndex = 74;
@@ -124,7 +100,7 @@ namespace DonSigaron.Forms
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label10.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label10.Location = new System.Drawing.Point(457, 110);
+            this.label10.Location = new System.Drawing.Point(453, 144);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(93, 23);
             this.label10.TabIndex = 73;
@@ -136,7 +112,7 @@ namespace DonSigaron.Forms
             this.textBox_username.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox_username.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBox_username.ForeColor = System.Drawing.SystemColors.InactiveBorder;
-            this.textBox_username.Location = new System.Drawing.Point(556, 105);
+            this.textBox_username.Location = new System.Drawing.Point(552, 139);
             this.textBox_username.Name = "textBox_username";
             this.textBox_username.Size = new System.Drawing.Size(167, 35);
             this.textBox_username.TabIndex = 72;
@@ -317,8 +293,6 @@ namespace DonSigaron.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.textBox_city);
-            this.Controls.Add(this.label7);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.textBox_address);
             this.Controls.Add(this.label9);
@@ -347,9 +321,6 @@ namespace DonSigaron.Forms
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox textBox_city;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBox_address;
         private System.Windows.Forms.Label label9;

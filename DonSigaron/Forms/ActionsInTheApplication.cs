@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using DonSigaron.Classes;
 
@@ -10,6 +11,23 @@ namespace DonSigaron.Forms
         {
             InitializeComponent();
             StartPosition = FormStartPosition.CenterScreen;
+            BackButton();
+        }
+
+        private void BackButton()
+        {
+            RoundButton cart = new RoundButton();
+            cart = Buttons.createButtonBack();
+            cart.Location = new Point(this.ClientSize.Width - cart.Width - 10, 10);
+            cart.Click += new System.EventHandler(this.LogOut);
+            this.Controls.Add(cart);
+        }
+
+        private void LogOut(object sender, EventArgs e)
+        {
+            var main = new MainForm();
+            this.Hide();
+            main.Show();
         }
 
         private void shopBT_Click(object sender, EventArgs e)

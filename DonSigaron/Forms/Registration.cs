@@ -23,7 +23,6 @@ namespace DonSigaron.Forms
             textBox_email.MaxLength = 50;
             textBox_password.MaxLength = 50;
             textBox_address.MaxLength = 50;
-            textBox_city.MaxLength = 50;
         }
 
         private void roundButton1_Click(object sender, EventArgs e)
@@ -35,9 +34,8 @@ namespace DonSigaron.Forms
             var username = textBox_username.Text;
             var password = textBox_password.Text;
             var address = textBox_address.Text;
-            var city = textBox_city.Text;
 
-            if (new[] { textBox_first_name.Text, textBox_last_name.Text, textBox_email.Text, textBox_phone_number.Text, textBox_username.Text, textBox_password.Text, textBox_address.Text, textBox_city.Text }
+            if (new[] { textBox_first_name.Text, textBox_last_name.Text, textBox_email.Text, textBox_phone_number.Text, textBox_username.Text, textBox_password.Text, textBox_address.Text }
                     .All(x => string.IsNullOrWhiteSpace(x)))
             {
                 MessageBox.Show("You didn't specify a field", "Input error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -52,10 +50,20 @@ namespace DonSigaron.Forms
                 {
                     
                     SqlCommand command = new SqlCommand();
-                    command = functions.sqlInsert($"INSERT INTO customers (first_name, last_name, email, phone, username, [password], [address], city) VALUES ('{first_name}', '{last_name}', '{email}', '{phone_number}', '{username}', '{password}', '{address}', '{city}');");
+                    command = functions.sqlInsert($"INSERT INTO customers (first_name, last_name, email, phone, username, [password]) VALUES ('{first_name}', '{last_name}', '{email}', '{phone_number}', '{username}', '{password}');");
                     if (command.ExecuteNonQuery() == 1)
                     {
                         VariableStorage.userName = username;
+                        var a = functions.sqlSelect($"SELECT id FROM [dbo].[customers] WHERE username = '{username}'");
+                        int b = Convert.ToInt32(a.Rows[0][0]);
+
+                        functions.sqlInsert($"INSERT INTO [dbo].[addresses](title, customer_id) VALUES('{textBox_address.Text}', {b});").ExecuteNonQuery();
+                    
+                        var addressID = functions.sqlSelect($"SELECT id FROM [dbo].[addresses] WHERE title = '{address}'");
+                        int addIdConvert = Convert.ToInt32(addressID.Rows[0][0]);
+
+                        functions.sqlInsert($"UPDATE [dbo].[customers] SET address_id = {addIdConvert} WHERE id = {b};").ExecuteNonQuery();
+
                         MessageBox.Show("You have created an account", "Account added", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         ActionsInTheApplication actionsInTheApplication = new ActionsInTheApplication();
                         actionsInTheApplication.Show();
